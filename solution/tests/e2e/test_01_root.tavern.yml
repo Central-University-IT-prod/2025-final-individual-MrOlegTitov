@@ -1,0 +1,9 @@
+test_name: Check root endpoint (ping API)
+
+stages:
+  - name: "Ping API"
+    request:
+      url: "{BASE_URL}/"
+      method: GET
+    response:
+      status_code: 200

@@ -1,0 +1,39 @@
+[project]
+name = "adsplatform"
+version = "0.1.0"
+description = "Service for creating and displaying advertising campaigns. Consists of REST API and Telegram bot"
+authors = [
+    { name = "MrOlegTitovDev", email = "MrOlegTitov@yandex.ru" }
+]
+readme = "README.md"
+requires-python = ">=3.12,<4.0"
+dependencies = [
+    "httpx>=0.28.1",
+    "pydantic>=2.10.6",
+    "pydantic-settings>=2.7.1",
+    "redis[hiredis]>=5.2.1",
+    "tortoise-orm[asyncpg]>=0.24.0",
+]
+
+[dependency-groups]
+api = [
+    "aiobotocore>=2.19.0",
+    "fastapi>=0.115.8",
+    "python-multipart>=0.0.20",
+    "uvicorn>=0.34.0",
+]
+bot = [
+    "aiogram>=3.17.0",
+]
+dev = [
+    "mypy>=1.15.0",
+    "ruff>=0.9.6",
+]
+tests = [
+    "pytest-asyncio>=0.23.8",
+    "tavern>=2.11.0",
+]
+
+[tool.ruff.format]
+docstring-code-format = true
+quote-style = "preserve"

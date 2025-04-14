@@ -1,0 +1,32 @@
+test_name: Test campaigns statistics
+
+includes:
+  - !include components/base_ad.yml
+
+stages:
+  - type: ref
+    id: get_ad
+
+  - type: ref
+    id: click_ad
+
+  - name: "Get seen campaign stats"
+    request:
+      url: "{BASE_URL}/stats/campaigns/{seen_ad}"
+      method: GET
+    response:
+      status_code: 200
+      json:
+        impressions_count: 1
+        clicks_count: 1
+        conversion: 100
+        spent_impressions: 2
+        spent_clicks: 10
+        spent_total: 12
+
+  - name: "Get unknown campaign stats"
+    request:
+      url: "{BASE_URL}/stats/campaigns/{client1_id}"
+      method: GET
+    response:
+      status_code: 404

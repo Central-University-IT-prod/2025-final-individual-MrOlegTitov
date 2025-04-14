@@ -1,0 +1,11 @@
+{
+  "impressions_limit": 1,
+  "clicks_limit": 1,
+  "cost_per_impression": 0.1,
+  "cost_per_click": 0.1,
+  "start_date": 10,
+  "end_date": 5,
+  "ad_title": "Вы никогда не увидите эту рекламу. Честно :>",
+  "ad_text": "Гарантия 100%",
+  "targeting": {}
+}

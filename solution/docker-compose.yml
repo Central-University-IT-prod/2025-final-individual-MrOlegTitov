@@ -1,0 +1,136 @@
+services:
+  db:
+    image: postgres
+    env_file: .env
+    ports:
+      - "5432:5432"
+    volumes:
+      - adsplatform-db:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+
+  redis:
+    image: redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    volumes:
+      - adsplatform-caches:/data
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2G
+
+  minio:
+    image: minio/minio
+    restart: unless-stopped
+    env_file: .env
+    command: server /data --address REDACTED:9000 --console-address REDACTED:9001
+    ports:
+      - "9189:9001"
+    volumes:
+      - adsplatform-minio:/data
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 1G
+
+  createbuckets:
+    image: minio/mc
+    depends_on:
+      - minio
+    env_file: .env
+    entrypoint: >
+      /bin/sh -c "
+      sleep 1;
+      /usr/bin/mc alias set adsplatform http://minio:9000 ${MINIO_ROOT_USER} ${MINIO_ROOT_PASSWORD};
+      /usr/bin/mc mb adsplatform/${MINIO_BUCKET_NAME} --ignore-existing;
+      exit 0;
+      "
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 250M
+
+  api:
+    build:
+      context: .
+      target: api
+    depends_on:
+      - db
+      - redis
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "8080:8080"
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+
+  grafana:
+    image: grafana/grafana
+    depends_on:
+      - api
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./grafana.db:/var/lib/grafana/grafana.db
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 1G
+
+  bot:
+    build:
+      context: .
+      target: bot
+    depends_on:
+      db:
+        condition: service_healthy
+      api:
+        condition: service_started
+    restart: unless-stopped
+    env_file: .env
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 500M
+
+  tests:
+    build:
+      context: .
+      target: tests
+    profiles:
+      - tests
+    depends_on:
+      - api
+      - bot
+    env_file: .env
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 500M
+
+
+volumes:
+  adsplatform-db:
+  adsplatform-caches:
+  adsplatform-minio:

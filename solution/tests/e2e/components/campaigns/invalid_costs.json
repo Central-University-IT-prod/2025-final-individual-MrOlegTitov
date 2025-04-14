@@ -1,0 +1,11 @@
+{
+  "impressions_limit": 1,
+  "clicks_limit": 1,
+  "cost_per_impression": 0,
+  "cost_per_click": 0,
+  "start_date": 0,
+  "end_date": 1,
+  "ad_title": "Денег нет, но вы держитесь!",
+  "ad_text": "Вы держитесь здесь, вам всего доброго, хорошего настроения и здоровья!",
+  "targeting": {}
+}

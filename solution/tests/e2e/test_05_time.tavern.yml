@@ -1,0 +1,31 @@
+test_name: Test time set
+
+stages:
+  - name: "Set current date to acceptable number"
+    request:
+      url: "{BASE_URL}/time/advance"
+      method: POST
+      json:
+        current_date: 2
+    response:
+      status_code: 200
+      json:
+        current_date: 2
+
+  - name: "Set current date to negative number"
+    request:
+      url: "{BASE_URL}/time/advance"
+      method: POST
+      json:
+        current_date: -52
+    response:
+      status_code: 400
+
+  - name: "Get current date"
+    request:
+      url: "{BASE_URL}/time"
+      method: GET
+    response:
+      status_code: 200
+      json:
+        current_date: 2

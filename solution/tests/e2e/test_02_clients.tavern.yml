@@ -1,0 +1,47 @@
+test_name: Test client creation and update
+
+stages:
+  - name: "Register clients"
+    request:
+      url: "{BASE_URL}/clients/bulk"
+      method: POST
+      json:
+        - !include components/clients/1.json
+        - !include components/clients/2.json
+        - !include components/clients/3.json
+    response:
+      status_code: 201
+      json:
+        - !include components/clients/1.json
+        - !include components/clients/2.json
+        - !include components/clients/3.json
+
+  - name: "Registering a client with a taken login"
+    request:
+      url: "{BASE_URL}/clients/bulk"
+      method: POST
+      json:
+        - "client_id": "d9156d4f-5e68-4811-89ff-c699db3d2b1a"
+          "login": "lottie"
+          "age": 34
+          "location": "China"
+          "gender": "MALE"
+    response:
+      status_code: 409
+
+  - name: "Change third client's location"
+    request:
+      url: "{BASE_URL}/clients/bulk"
+      method: POST
+      json:
+        - !include components/clients/3_edited.json
+    response:
+      status_code: 201
+
+  - name: "Get third client's info after update"
+    request:
+      url: "{BASE_URL}/clients/{client3_id}"
+      method: GET
+    response:
+      status_code: 200
+      json: !include components/clients/3_edited.json

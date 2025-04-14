@@ -1,0 +1,13 @@
+{
+  "impressions_limit": 50,
+  "clicks_limit": 50,
+  "cost_per_impression": 2,
+  "cost_per_click": 10,
+  "start_date": 10,
+  "end_date": 12,
+  "ad_title": "Участвуй в олимпиаде по пром. программированию \"PROD\"!",
+  "ad_text": "Первая в России олимпиада по промышленной разработке \"PROD\"! Всем финалистам по два чокопая!",
+  "targeting": {
+    "age_to": 18
+  }
+}

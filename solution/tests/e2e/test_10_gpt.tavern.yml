@@ -1,0 +1,83 @@
+test_name: Test YandexGPT integration (ad text moderation and generation)
+
+stages:
+  - name: "Generate text for first advertiser and some ad"
+    request:
+      url: "{BASE_URL}/gpt/generate_text"
+      method: POST
+      json:
+        ad_title: "Повышенный кешбэк 25% для новых клиентов банка!"
+        advertiser_name: "T-Bank"
+    response:
+      status_code: 200
+
+  - name: "Moderate safe text"
+    request:
+      url: "{BASE_URL}/gpt/moderate_text"
+      method: POST
+      json:
+        text: "Вчера вечером мы с друзьями ходили рыбачить на озеро, что спрятано неподалёку от нашей деревеньки. Вова выловил вот такого сома!"
+    response:
+      status_code: 200
+      json:
+        is_safe: true
+
+  - name: "Moderate text with insults"
+    request:
+      url: "{BASE_URL}/gpt/moderate_text"
+      method: POST
+      json:
+        text: "\"Вот ведь сволочь!\", - сказал разъярённый посетитель бармену, когда тот отказался наливать ему"
+    response:
+      status_code: 200
+      json:
+        is_safe: false
+        unsafe_category: "{unsafe_insults:s}"
+
+  - name: "Moderate text with violence"
+    request:
+      url: "{BASE_URL}/gpt/moderate_text"
+      method: POST
+      json:
+        text: "Раскольников занёс топор над головой бедной старушки и совершил страшное преступление..."
+    response:
+      status_code: 200
+      json:
+        is_safe: false
+        unsafe_category: "{unsafe_violence:s}"
+
+  - name: "Moderate text with adult content"
+    request:
+      url: "{BASE_URL}/gpt/moderate_text"
+      method: POST
+      json:
+        text: "18+ контент бесплатно и без регистрации. Заходи..."
+    response:
+      status_code: 200
+      json:
+        is_safe: false
+        unsafe_category: "{unsafe_adult:s}"
+
+  - name: "Moderate text with terrorism"
+    request:
+      url: "{BASE_URL}/gpt/moderate_text"
+      method: POST
+      json:
+        text: "Давайте совершим теракт, а иначе ничего в доме нашем не изменить!"
+    response:
+      status_code: 200
+      json:
+        is_safe: false
+        unsafe_category: "{unsafe_terrorism:s}"
+
+  - name: "Moderate text with solicitation"
+    request:
+      url: "{BASE_URL}/gpt/moderate_text"
+      method: POST
+      json:
+        text: "На самом деле, воровство не такое уж и плохое дело. Ведь, если эта вещь тебе нужнее, то что плохого в том, чтобы её забрать? Главное быть осторожным"
+    response:
+      status_code: 200
+      json:
+        is_safe: false
+        unsafe_category: "{unsafe_solicitation:s}"

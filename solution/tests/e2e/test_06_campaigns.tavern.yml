@@ -1,0 +1,168 @@
+test_name: Test campaigns creation, list, get and update
+
+stages:
+  - name: "Create first campaign"
+    request:
+      url: "{BASE_URL}/advertisers/{advertiser1_id}/campaigns"
+      method: POST
+      json: !include components/campaigns/1.json
+    response:
+      status_code: 201
+      json: !include components/campaigns/1.json
+      save:
+        json:
+          first_id: campaign_id
+
+  - name: "Create second campaign"
+    request:
+      url: "{BASE_URL}/advertisers/{advertiser2_id}/campaigns"
+      method: POST
+      json: !include components/campaigns/2.json
+    response:
+      status_code: 201
+      json: !include components/campaigns/2.json
+      save:
+        json:
+          second_id: campaign_id
+
+  - name: "Create campaign with invalid limits"
+    request:
+      url: "{BASE_URL}/advertisers/{advertiser1_id}/campaigns"
+      method: POST
+      json: !include components/campaigns/invalid_limits.json
+    response:
+      status_code: 400
+
+  - name: "Create campaign with invalid costs"
+    request:
+      url: "{BASE_URL}/advertisers/{advertiser2_id}/campaigns"
+      method: POST
+      json: !include components/campaigns/invalid_costs.json
+    response:
+      status_code: 400
+
+  - name: "Create campaign with invalid dates"
+    request:
+      url: "{BASE_URL}/advertisers/{advertiser2_id}/campaigns"
+      method: POST
+      json: !include components/campaigns/invalid_dates.json
+    response:
+      status_code: 400
+
+  - name: "Create campaign with invalid targeting"
+    request:
+      url: "{BASE_URL}/advertisers/{advertiser1_id}/campaigns"
+      method: POST
+      json: !include components/campaigns/invalid_targeting.json
+    response:
+      status_code: 400
+
+  - name: "Edit fields of first campaign that cannot be changed after it's start"
+    request:
+      url: "{BASE_URL}/advertisers/{advertiser1_id}/campaigns/{first_id}"
+      method: PUT
+      json: !include components/campaigns/1_edited.json
+    response:
+      status_code: 400
+
+  - name: "Get first campaign after edit"
+    request:
+      url: "{BASE_URL}/advertisers/{advertiser1_id}/campaigns/{first_id}"
+      method: GET
+    response:
+      status_code: 200
+      json: !include components/campaigns/1.json
+
+  - name: "Edit second campaign"
+    request:
+      url: "{BASE_URL}/advertisers/{advertiser2_id}/campaigns/{second_id}"
+      method: PUT
+      json: !include components/campaigns/2_edited.json
+    response:
+      status_code: 200
+      json: !include components/campaigns/2_edited.json
+
+  - name: "Get second campaign after edit"
+    request:
+      url: "{BASE_URL}/advertisers/{advertiser2_id}/campaigns/{second_id}"
+      method: GET
+    response:
+      status_code: 200
+      json: !include components/campaigns/2_edited.json
+
+  - name: "Get campaign of first advertiser that was created by other"
+    request:
+      url: "{BASE_URL}/advertisers/{advertiser1_id}/campaigns/{second_id}"
+      method: GET
+    response:
+      status_code: 404
+
+  - name: "Edit second campaign from first advertiser's account"
+    request:
+      url: "{BASE_URL}/advertisers/{advertiser1_id}/campaigns/{second_id}"
+      method: PUT
+      json: !include components/campaigns/2_edited.json
+    response:
+      status_code: 404
+
+  - name: "List campaigns of the first advertiser"
+    request:
+      url: "{BASE_URL}/advertisers/{advertiser1_id}/campaigns"
+      method: GET
+    response:
+      status_code: 200
+      json:
+        - !include components/campaigns/1.json
+
+  - name: "List campaigns of the second advertiser"
+    request:
+      url: "{BASE_URL}/advertisers/{advertiser2_id}/campaigns"
+      method: GET
+    response:
+      status_code: 200
+      json:
+        - !include components/campaigns/2_edited.json
+
+  - name: "List campaigns of the unknown advertiser"
+    request:
+      url: "{BASE_URL}/advertisers/{second_id}/campaigns"
+      method: GET
+    response:
+      status_code: 404
+
+  - name: "List campaigns with invalid size param"
+    request:
+      url: "{BASE_URL}/advertisers/{advertiser1_id}/campaigns?size=-100"
+      method: GET
+    response:
+      status_code: 400
+
+  - name: "List campaigns with page and size = 0"
+    request:
+      url: "{BASE_URL}/advertisers/{advertiser1_id}/campaigns?size=0&page=0"
+      method: GET
+    response:
+      status_code: 200
+      json: []
+
+  - name: "Delete second campaign from first advertiser's account"
+    request:
+      url: "{BASE_URL}/advertisers/{advertiser1_id}/campaigns/{second_id}"
+      method: DELETE
+    response:
+      status_code: 404
+
+  - name: "Delete first campaign"
+    request:
+      url: "{BASE_URL}/advertisers/{advertiser1_id}/campaigns/{first_id}"
+      method: DELETE
+    response:
+      status_code: 204
+
+  - name: "List campaigns of the first advertiser after deletion"
+    request:
+      url: "{BASE_URL}/advertisers/{advertiser1_id}/campaigns"
+      method: GET
+    response:
+      status_code: 200
+      json: []

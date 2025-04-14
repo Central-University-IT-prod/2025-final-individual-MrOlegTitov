@@ -1,0 +1,17 @@
+variables:
+  BASE_URL: "http://api:8080"
+
+  client1_id: "d9156d4f-5e68-4811-89ff-c699db3d2b2c"
+  client2_id: "6cb8672c-c917-45fb-9fb7-951b5aa648c5"
+  client3_id: "4da42d4b-c074-410b-af5a-d87dcb2026fd"
+
+  advertiser1_id: "2e5c9bde-23fd-440f-88a1-1abe79ed5b52"
+  advertiser2_id: "d48cdfe0-a689-48f5-a62a-bdbe548d3ba4"
+
+  unsafe_insults: "оскорбления"
+  unsafe_profanity: "ненормативная лексика"
+  unsafe_violence: "призывы к насилию"
+  unsafe_adult: "контент для взрослых"
+  unsafe_terrorism: "призыв к терроризму"
+  unsafe_solicitation: "призыв к совершению незаконных действий"
+  unsafe_other: "иной небезопасный контент"

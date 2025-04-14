@@ -1,0 +1,1788 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "AdsPlatform API",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/s3/{file_path}": {
+      "get": {
+        "tags": [
+          "S3"
+        ],
+        "summary": "Get File",
+        "operationId": "get_file_s3__file_path__get",
+        "parameters": [
+          {
+            "name": "file_path",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "File Path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "S3"
+        ],
+        "summary": "Upload File",
+        "operationId": "upload_file_s3__file_path__put",
+        "parameters": [
+          {
+            "name": "file_path",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "File Path"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_file_s3__file_path__put"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "S3"
+        ],
+        "summary": "Delete File",
+        "operationId": "delete_file_s3__file_path__delete",
+        "parameters": [
+          {
+            "name": "file_path",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "File Path"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clients/{client_id}": {
+      "get": {
+        "tags": [
+          "Clients"
+        ],
+        "summary": "Get Client",
+        "operationId": "get_client_clients__client_id__get",
+        "parameters": [
+          {
+            "name": "client_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Client Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clients/bulk": {
+      "post": {
+        "tags": [
+          "Clients"
+        ],
+        "summary": "Bulk Update",
+        "operationId": "bulk_update_clients_bulk_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "items": {
+                  "$ref": "#/components/schemas/Client"
+                },
+                "type": "array",
+                "title": "Data"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Client"
+                  },
+                  "type": "array",
+                  "title": "Response Bulk Update Clients Bulk Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/advertisers/{advertiser_id}": {
+      "get": {
+        "tags": [
+          "Advertisers"
+        ],
+        "summary": "Get Advertiser",
+        "operationId": "get_advertiser_advertisers__advertiser_id__get",
+        "parameters": [
+          {
+            "name": "advertiser_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Advertiser Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Advertiser"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/advertisers/bulk": {
+      "post": {
+        "tags": [
+          "Advertisers"
+        ],
+        "summary": "Bulk Update",
+        "operationId": "bulk_update_advertisers_bulk_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "items": {
+                  "$ref": "#/components/schemas/Advertiser"
+                },
+                "type": "array",
+                "title": "Data"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Advertiser"
+                  },
+                  "type": "array",
+                  "title": "Response Bulk Update Advertisers Bulk Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/advertisers/ml-scores": {
+      "post": {
+        "tags": [
+          "Advertisers"
+        ],
+        "summary": "Set Score",
+        "operationId": "set_score_advertisers_ml_scores_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MLScore"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/advertisers/{advertiser_id}/campaigns": {
+      "post": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Create Campaign",
+        "operationId": "create_campaign_advertisers__advertiser_id__campaigns_post",
+        "parameters": [
+          {
+            "name": "advertiser_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Advertiser Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CampaignIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Campaign"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Get Campaigns",
+        "operationId": "get_campaigns_advertisers__advertiser_id__campaigns_get",
+        "parameters": [
+          {
+            "name": "advertiser_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Advertiser Id"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Size"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": 0,
+              "title": "Page"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Campaign"
+                  },
+                  "title": "Response Get Campaigns Advertisers  Advertiser Id  Campaigns Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/advertisers/{advertiser_id}/campaigns/{campaign_id}": {
+      "get": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Get Campaign",
+        "operationId": "get_campaign_advertisers__advertiser_id__campaigns__campaign_id__get",
+        "parameters": [
+          {
+            "name": "advertiser_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Advertiser Id"
+            }
+          },
+          {
+            "name": "campaign_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Campaign Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Campaign"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Update Campaign",
+        "operationId": "update_campaign_advertisers__advertiser_id__campaigns__campaign_id__put",
+        "parameters": [
+          {
+            "name": "advertiser_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Advertiser Id"
+            }
+          },
+          {
+            "name": "campaign_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Campaign Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CampaignEdit"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Campaign"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Campaigns"
+        ],
+        "summary": "Delete Campaign",
+        "operationId": "delete_campaign_advertisers__advertiser_id__campaigns__campaign_id__delete",
+        "parameters": [
+          {
+            "name": "advertiser_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Advertiser Id"
+            }
+          },
+          {
+            "name": "campaign_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Campaign Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ads": {
+      "get": {
+        "tags": [
+          "Ads"
+        ],
+        "summary": "Get Ad",
+        "operationId": "get_ad_ads_get",
+        "parameters": [
+          {
+            "name": "client_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Client Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ad"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ads/{ad_id}/click": {
+      "post": {
+        "tags": [
+          "Ads"
+        ],
+        "summary": "Click Ad",
+        "operationId": "click_ad_ads__ad_id__click_post",
+        "parameters": [
+          {
+            "name": "ad_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Ad Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_click_ad_ads__ad_id__click_post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stats/campaigns/{campaign_id}": {
+      "get": {
+        "tags": [
+          "Statistics"
+        ],
+        "summary": "Campaign Stats",
+        "operationId": "campaign_stats_stats_campaigns__campaign_id__get",
+        "parameters": [
+          {
+            "name": "campaign_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Campaign Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CampaignStats"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stats/advertisers/{advertiser_id}/campaigns": {
+      "get": {
+        "tags": [
+          "Statistics"
+        ],
+        "summary": "Advertiser Stats",
+        "operationId": "advertiser_stats_stats_advertisers__advertiser_id__campaigns_get",
+        "parameters": [
+          {
+            "name": "advertiser_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Advertiser Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CampaignStats"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stats/campaigns/{campaign_id}/daily": {
+      "get": {
+        "tags": [
+          "Statistics"
+        ],
+        "summary": "Campaign Daily Stats",
+        "operationId": "campaign_daily_stats_stats_campaigns__campaign_id__daily_get",
+        "parameters": [
+          {
+            "name": "campaign_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Campaign Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CampaignDailyStats"
+                  },
+                  "title": "Response Campaign Daily Stats Stats Campaigns  Campaign Id  Daily Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stats/advertisers/{advertiser_id}/campaigns/daily": {
+      "get": {
+        "tags": [
+          "Statistics"
+        ],
+        "summary": "Advertiser Daily Stats",
+        "operationId": "advertiser_daily_stats_stats_advertisers__advertiser_id__campaigns_daily_get",
+        "parameters": [
+          {
+            "name": "advertiser_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Advertiser Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CampaignDailyStats"
+                  },
+                  "title": "Response Advertiser Daily Stats Stats Advertisers  Advertiser Id  Campaigns Daily Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/time/advance": {
+      "post": {
+        "tags": [
+          "Time"
+        ],
+        "summary": "Set Current Date",
+        "operationId": "set_current_date_time_advance_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Time"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Time"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/time": {
+      "get": {
+        "tags": [
+          "Time"
+        ],
+        "summary": "Get Current Date",
+        "operationId": "get_current_date_time_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Time"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gpt/moderate_text": {
+      "post": {
+        "tags": [
+          "GPT"
+        ],
+        "summary": "Moderate Text",
+        "operationId": "moderate_text_gpt_moderate_text_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_moderate_text_gpt_moderate_text_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TextModerationOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gpt/generate_text": {
+      "post": {
+        "tags": [
+          "GPT"
+        ],
+        "summary": "Generate Text",
+        "operationId": "generate_text_gpt_generate_text_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdTextGenerationIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "title": "Response Generate Text Gpt Generate Text Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "summary": "Root",
+        "operationId": "root__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "title": "Response Root  Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Ad": {
+        "properties": {
+          "ad_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Ad Id"
+          },
+          "ad_title": {
+            "type": "string",
+            "title": "Ad Title"
+          },
+          "ad_text": {
+            "type": "string",
+            "title": "Ad Text"
+          },
+          "advertiser_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Advertiser Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ad_id",
+          "ad_title",
+          "ad_text",
+          "advertiser_id"
+        ],
+        "title": "Ad"
+      },
+      "AdTextGenerationIn": {
+        "properties": {
+          "ad_title": {
+            "type": "string",
+            "title": "Ad Title"
+          },
+          "advertiser_name": {
+            "type": "string",
+            "title": "Advertiser Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ad_title",
+          "advertiser_name"
+        ],
+        "title": "AdTextGenerationIn"
+      },
+      "Advertiser": {
+        "properties": {
+          "advertiser_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Advertiser Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "advertiser_id",
+          "name"
+        ],
+        "title": "Advertiser"
+      },
+      "Body_click_ad_ads__ad_id__click_post": {
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "client_id"
+        ],
+        "title": "Body_click_ad_ads__ad_id__click_post"
+      },
+      "Body_moderate_text_gpt_moderate_text_post": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "Text"
+          }
+        },
+        "type": "object",
+        "required": [
+          "text"
+        ],
+        "title": "Body_moderate_text_gpt_moderate_text_post"
+      },
+      "Body_upload_file_s3__file_path__put": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_upload_file_s3__file_path__put"
+      },
+      "Campaign": {
+        "properties": {
+          "impressions_limit": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Impressions Limit"
+          },
+          "clicks_limit": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Clicks Limit"
+          },
+          "cost_per_impression": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Cost Per Impression"
+          },
+          "cost_per_click": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Cost Per Click"
+          },
+          "start_date": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Start Date"
+          },
+          "end_date": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "End Date"
+          },
+          "ad_title": {
+            "type": "string",
+            "title": "Ad Title"
+          },
+          "ad_text": {
+            "type": "string",
+            "title": "Ad Text"
+          },
+          "ad_image": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ad Image"
+          },
+          "targeting": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CampaignTargeting"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "campaign_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Campaign Id"
+          },
+          "advertiser_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Advertiser Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "impressions_limit",
+          "clicks_limit",
+          "cost_per_impression",
+          "cost_per_click",
+          "start_date",
+          "end_date",
+          "ad_title",
+          "ad_text",
+          "campaign_id",
+          "advertiser_id"
+        ],
+        "title": "Campaign"
+      },
+      "CampaignDailyStats": {
+        "properties": {
+          "impressions_count": {
+            "type": "integer",
+            "title": "Impressions Count"
+          },
+          "clicks_count": {
+            "type": "integer",
+            "title": "Clicks Count"
+          },
+          "conversion": {
+            "type": "number",
+            "title": "Conversion"
+          },
+          "spent_impressions": {
+            "type": "number",
+            "title": "Spent Impressions"
+          },
+          "spent_clicks": {
+            "type": "number",
+            "title": "Spent Clicks"
+          },
+          "spent_total": {
+            "type": "number",
+            "title": "Spent Total"
+          },
+          "date": {
+            "type": "integer",
+            "title": "Date"
+          }
+        },
+        "type": "object",
+        "required": [
+          "impressions_count",
+          "clicks_count",
+          "conversion",
+          "spent_impressions",
+          "spent_clicks",
+          "spent_total",
+          "date"
+        ],
+        "title": "CampaignDailyStats"
+      },
+      "CampaignEdit": {
+        "properties": {
+          "impressions_limit": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Impressions Limit"
+          },
+          "clicks_limit": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Clicks Limit"
+          },
+          "cost_per_impression": {
+            "anyOf": [
+              {
+                "type": "number",
+                "exclusiveMinimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cost Per Impression"
+          },
+          "cost_per_click": {
+            "anyOf": [
+              {
+                "type": "number",
+                "exclusiveMinimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cost Per Click"
+          },
+          "start_date": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Start Date"
+          },
+          "end_date": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "End Date"
+          },
+          "ad_title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ad Title"
+          },
+          "ad_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ad Text"
+          },
+          "ad_image": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ad Image"
+          },
+          "targeting": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CampaignTargeting"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "title": "CampaignEdit"
+      },
+      "CampaignIn": {
+        "properties": {
+          "impressions_limit": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Impressions Limit"
+          },
+          "clicks_limit": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Clicks Limit"
+          },
+          "cost_per_impression": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Cost Per Impression"
+          },
+          "cost_per_click": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Cost Per Click"
+          },
+          "start_date": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Start Date"
+          },
+          "end_date": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "End Date"
+          },
+          "ad_title": {
+            "type": "string",
+            "title": "Ad Title"
+          },
+          "ad_text": {
+            "type": "string",
+            "title": "Ad Text"
+          },
+          "ad_image": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ad Image"
+          },
+          "targeting": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CampaignTargeting"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "impressions_limit",
+          "clicks_limit",
+          "cost_per_impression",
+          "cost_per_click",
+          "start_date",
+          "end_date",
+          "ad_title",
+          "ad_text"
+        ],
+        "title": "CampaignIn"
+      },
+      "CampaignStats": {
+        "properties": {
+          "impressions_count": {
+            "type": "integer",
+            "title": "Impressions Count"
+          },
+          "clicks_count": {
+            "type": "integer",
+            "title": "Clicks Count"
+          },
+          "conversion": {
+            "type": "number",
+            "title": "Conversion"
+          },
+          "spent_impressions": {
+            "type": "number",
+            "title": "Spent Impressions"
+          },
+          "spent_clicks": {
+            "type": "number",
+            "title": "Spent Clicks"
+          },
+          "spent_total": {
+            "type": "number",
+            "title": "Spent Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "impressions_count",
+          "clicks_count",
+          "conversion",
+          "spent_impressions",
+          "spent_clicks",
+          "spent_total"
+        ],
+        "title": "CampaignStats"
+      },
+      "CampaignTargeting": {
+        "properties": {
+          "gender": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TargetingGender"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "age_from": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Age From"
+          },
+          "age_to": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Age To"
+          },
+          "location": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Location"
+          }
+        },
+        "type": "object",
+        "title": "CampaignTargeting"
+      },
+      "Client": {
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client Id"
+          },
+          "login": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Login"
+          },
+          "age": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Age"
+          },
+          "location": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Location"
+          },
+          "gender": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Gender"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "client_id"
+        ],
+        "title": "Client"
+      },
+      "Gender": {
+        "type": "string",
+        "enum": [
+          "MALE",
+          "FEMALE"
+        ],
+        "title": "Gender"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "MLScore": {
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client Id"
+          },
+          "advertiser_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Advertiser Id"
+          },
+          "score": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Score"
+          }
+        },
+        "type": "object",
+        "required": [
+          "client_id",
+          "advertiser_id",
+          "score"
+        ],
+        "title": "MLScore"
+      },
+      "TargetingGender": {
+        "type": "string",
+        "enum": [
+          "MALE",
+          "FEMALE",
+          "ALL"
+        ],
+        "title": "TargetingGender"
+      },
+      "TextModerationOut": {
+        "properties": {
+          "is_safe": {
+            "type": "boolean",
+            "title": "Is Safe"
+          },
+          "unsafe_category": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unsafe Category"
+          }
+        },
+        "type": "object",
+        "required": [
+          "is_safe"
+        ],
+        "title": "TextModerationOut"
+      },
+      "Time": {
+        "properties": {
+          "current_date": {
+            "type": "integer",
+            "title": "Current Date"
+          }
+        },
+        "type": "object",
+        "required": [
+          "current_date"
+        ],
+        "title": "Time"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}

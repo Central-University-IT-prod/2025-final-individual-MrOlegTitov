@@ -1,0 +1,56 @@
+test_name: Test ads getting and clicking  # Sorry, but no algo efficiency/relevancy tests :<
+
+includes:
+  - !include components/base_ad.yml
+
+stages:
+  - name: "Get ad without targeting match ads"
+    request:
+      url: "{BASE_URL}/ads?client_id={client2_id}"
+      method: GET
+    response:
+      status_code: 404
+
+  - name: "Set time to 4 and activate 1 ad"
+    request:
+      url: "{BASE_URL}/time/advance"
+      method: POST
+      json:
+        current_date: 4
+    response:
+      status_code:
+        - 200
+        - 400  # Current date > 4, it is okay for our tests
+
+  - type: ref
+    id: get_ad
+
+  - type: ref
+    id: click_ad
+
+  - name: "Click on unseen ad"
+    request:
+      url: "{BASE_URL}/ads/{seen_ad}/click"
+      method: POST
+      json:
+        client_id: "{client2_id}"
+    response:
+      status_code: 403
+
+  - name: "Click on unknown ad"
+    request:
+      url: "{BASE_URL}/ads/{client1_id}/click"
+      method: POST
+      json:
+        client_id: "{client1_id}"
+    response:
+      status_code: 404
+
+  - name: "Click on ad by unknown client"
+    request:
+      url: "{BASE_URL}/ads/{seen_ad}/click"
+      method: POST
+      json:
+        client_id: "d48cdfe0-a689-48f5-a62a-bdbe548d3ba4"
+    response:
+      status_code: 404

@@ -1,0 +1,16 @@
+{
+  "impressions_limit": 100,
+  "clicks_limit": 75,
+  "cost_per_impression": 1.5,
+  "cost_per_click": 3,
+  "start_date": 2,
+  "end_date": 10,
+  "ad_title": "Кешбэк 20% для новых клиентов банка!",
+  "ad_text": "Тут даже и говорить нечего. Просто победа!",
+  "targeting": {
+    "gender": "ALL",
+    "age_from": 14,
+    "age_to": 45,
+    "location": "Moscow"
+  }
+}

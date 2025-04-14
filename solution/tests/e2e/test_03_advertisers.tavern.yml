@@ -1,0 +1,34 @@
+test_name: Test advertiser creation and update
+
+stages:
+  - name: "Register advertisers"
+    request:
+      url: "{BASE_URL}/advertisers/bulk"
+      method: POST
+      json:
+        - !include components/advertisers/1.json
+        - !include components/advertisers/2.json
+    response:
+      status_code: 201
+      json:
+        - !include components/advertisers/1.json
+        - !include components/advertisers/2.json
+
+  - name: "Edit second advertiser's data"
+    request:
+      url: "{BASE_URL}/advertisers/bulk"
+      method: POST
+      json:
+        - !include components/advertisers/2_edited.json
+    response:
+      status_code: 201
+      json:
+        - !include components/advertisers/2_edited.json
+
+  - name: "Get first advertiser data"
+    request:
+      url: "{BASE_URL}/advertisers/{advertiser1_id}"
+      method: GET
+    response:
+      status_code: 200
+      json: !include components/advertisers/1.json

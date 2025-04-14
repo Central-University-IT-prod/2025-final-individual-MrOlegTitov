@@ -1,0 +1,27 @@
+test_name: Test campaigns statistics
+
+includes:
+  - !include components/base_ad.yml
+
+stages:
+  - type: ref
+    id: get_ad
+
+  - type: ref
+    id: click_ad
+
+  - name: "Get advertiser stats"
+    request:
+      url: "{BASE_URL}/stats/advertisers/{seen_advertiser}/campaigns"
+      method: GET
+    response:
+      status_code: 200
+      json:
+        conversion: 100
+
+  - name: "Get unknown advertiser stats"
+    request:
+      url: "{BASE_URL}/stats/advertisers/{client1_id}/campaigns"
+      method: GET
+    response:
+      status_code: 404

@@ -1,0 +1,15 @@
+{
+  "impressions_limit": 1,
+  "clicks_limit": 1,
+  "cost_per_impression": 1,
+  "cost_per_click": 1,
+  "start_date": 0,
+  "end_date": 1,
+  "ad_title": "Случайности не случайны...",
+  "ad_text": "Подробнее: https://en.wikipedia.org/wiki/Pseudorandom_number_generator",
+  "targeting": {
+    "gender": "RANDOM",
+    "age_from": -10,
+    "age_to": -20
+  }
+}
